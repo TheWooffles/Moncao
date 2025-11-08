@@ -9,8 +9,9 @@ async function fetchGitHubVersion() {
     const data = await response.json();
     const shortHash = data.sha.substring(0, 7);
     const date = new Date(data.commit.author.date).toLocaleDateString();
+    const message = data.commit.message;
     const versionBar = document.getElementById("version-bar");
-    versionBar.textContent = `Version: ${shortHash} (${date})`;
+    versionBar.textContent = `Version: ${shortHash} (${date}) — ${message}`;
   } catch (error) {
     console.error("Error fetching version:", error);
     const versionBar = document.getElementById("version-bar");
