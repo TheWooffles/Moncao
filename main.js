@@ -38,6 +38,10 @@ function setValue(value) {
   editor.setValue(value);
 }
 
+function clearValue() {
+  editor.setValue("");
+}
+
 function getValue() {
   return editor.getValue();
 }
