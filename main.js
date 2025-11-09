@@ -23,8 +23,35 @@ async function fetchGitHubVersion() {
 fetchGitHubVersion();
 
 require(["./vs/editor/editor.main"], function () {
+  monaco.languages.registerCompletionItemProvider("lua", {
+    provideCompletionItems: (model, position, context, token) => {
+      const suggestions = [
+        {
+          label: "local",
+          kind: monaco.languages.CompletionItemKind.Keyword,
+          documentation: "Lua/Luau keyword",
+          insertText: "local",
+        },
+        {
+          label: "game",
+          kind: monaco.languages.CompletionItemKind.Variable,
+          documentation:
+            "The root DataModel object, representing the entire game.",
+          insertText: "game",
+        },
+        {
+          label: "script",
+          kind: monaco.languages.CompletionItemKind.Variable,
+          documentation: "The currently running Script or ModuleScript.",
+          insertText: "script",
+        },
+      ];
+      return { suggestions: suggestions };
+    },
+  });
+
   editor = monaco.editor.create(document.getElementById("container"), {
-    value: "",
+    value: "-- // Entropy",
     language: "lua",
     theme: "vs-dark",
     automaticLayout: true,
@@ -32,6 +59,7 @@ require(["./vs/editor/editor.main"], function () {
     smoothScrolling: true,
     links: true,
     dragAndDrop: true,
+    showFoldingControls: "always",
   });
 });
 
@@ -54,3 +82,27 @@ function setLanguage(language) {
 function setTheme(theme) {
   monaco.editor.setTheme(theme);
 }
+
+function saveAsFile(filename, content) {
+  const blob = new Blob([content], { type: "text/plain" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+document.addEventListener("keydown", function (e) {
+  if (e.ctrlKey && e.key.toLowerCase() === "s") {
+    e.preventDefault();
+    const filename = prompt("File Name:", "Content.txt");
+    if (filename === null) {
+      console.log("Save Prompt Canceled!");
+    } else if (filename === "") {
+      alert("Enter A Valid File Name!");
+    } else {
+      const content = getValue();
+      saveAsFile(filename, content);
+    }
+  }
+});
