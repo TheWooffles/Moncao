@@ -23,6 +23,11 @@ async function fetchGitHubVersion() {
 fetchGitHubVersion();
 
 require(["./vs/editor/editor.main"], function () {
+  // Load tab manager
+  let script = document.createElement("script");
+  script.src = "tabs.js";
+  document.body.appendChild(script);
+
   monaco.languages.registerCompletionItemProvider("lua", {
     provideCompletionItems: (model, position, context, token) => {
       const suggestions = [
@@ -51,7 +56,6 @@ require(["./vs/editor/editor.main"], function () {
   });
 
   editor = monaco.editor.create(document.getElementById("container"), {
-    value: "-- // Entropy",
     language: "lua",
     theme: "vs-dark",
     automaticLayout: true,
@@ -61,6 +65,11 @@ require(["./vs/editor/editor.main"], function () {
     dragAndDrop: true,
     showFoldingControls: "always",
   });
+
+  // Create initial tab after editor is initialized
+  script.onload = () => {
+    tabManager.createTab("entropy.lua", "-- // Entropy");
+  };
 });
 
 function setValue(value) {
