@@ -1,3 +1,11 @@
+@font-face {
+  src: url("https\:\/\/main\.vscode-cdn\.net\/stable\/7d842fb85a0275a4a8e4d7e040d2625abbf7f084\/extensions\/theme-seti\/icons\/seti\.woff")
+    format("woff");
+  font-family: "seti";
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
 html,
 body {
   margin: 0;
@@ -60,8 +68,9 @@ body {
   margin-right: 5px;
   font-family: "seti";
   font-size: 14px;
+  color: #498ba7;
   content: "\E05E";
-  color: #519aba;
+  background-image: unset;
 }
 
 .tab span {
