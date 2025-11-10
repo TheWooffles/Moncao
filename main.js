@@ -22,7 +22,8 @@ async function fetchGitHubVersion() {
 // Fetch version when page loads
 fetchGitHubVersion();
 
-require(["./vs/editor/editor.main"], function () {
+// Initialize Monaco
+window.onload = function () {
   // Load tab manager
   let script = document.createElement("script");
   script.src = "tabs.js";
@@ -70,7 +71,7 @@ require(["./vs/editor/editor.main"], function () {
   script.onload = () => {
     tabManager.createTab("entropy.lua", "-- // Entropy");
   };
-});
+};
 
 function setValue(value) {
   editor.setValue(value);
