@@ -17,11 +17,13 @@
     <div id="version-bar"></div>
 
     <script>
-      var require = { paths: { vs: "vs" } };
+      var require = {
+        paths: {
+          vs: "https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs",
+        },
+      };
     </script>
-    <script src="./vs/loader.js"></script>
-    <script src="./vs/editor/editor.main.nls.js"></script>
-    <script src="./vs/editor/editor.main.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.53.0/min/vs/loader.js"></script>
     <script src="main.js"></script>
   </body>
 </html>
